@@ -1,2 +1,2 @@
 # PROJECT---FINANCIAL-LAB
-projekt in financial lab
+Project in financial lab
