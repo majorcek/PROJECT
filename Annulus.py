@@ -12,7 +12,7 @@ class annulus:
 
         radius is a percentage value of the outer border radius, must be between 0 and 1
         number_of_points must be >= 3 (default value is 5)
-        points is a list of points, uniformly randomly distributed inside the annulus
+        points is a numpy array of points, uniformly randomly distributed inside the annulus
         method must be either 'polar' or 'planar', depicting the way random points are generated
         """
         assert 0 <= radius <= 1, \
@@ -27,13 +27,26 @@ class annulus:
         self.r = radius
         self.n = number_of_points
 
-        # Methods regarding points inside the annulus
-        self.points = self.__create_points_polar()
-        self.convex_hull = self.__make_convex_hull()
+        # Variables regarding points inside the annulus
+        self.points = self.__create_points(method)
 
+        # Variables regarding the convex hull
+        self.convex_hull = self.__create_convex_hull()
+        self.vertices = self.__get_convex_hull_vertices()
+
+
+    @property
     def area(self):
         """ Calculates the area of the annulus"""
+        return math.pi*(1 - self.r ** 2)
 
+
+    def __create_points(self, method):
+        """ Creates n random points using either polar or planar method"""
+        if method == "polar":
+            return self.__create_points_polar()
+        else:
+            return self.__create_points_planar()
 
     def __create_points_polar(self):
         """ Creates n points within the annulus using polar coordinates and uniform distribution.
@@ -42,6 +55,8 @@ class annulus:
         Points are then transformed into cartesian coordinates using:
         x = R*cos(theta)
         y = R*sin(theta)
+
+        It returns a numpy array of two element arrays i.e. array([[x1,y1],[x2,y2], ...])
         """
 
         # Initializes random variables, that are to be used for computation of random points
@@ -53,17 +68,47 @@ class annulus:
         x = R*np.cos(theta)
         y = R*np.sin(theta)
 
-        return list(zip(x,y))
+        return np.column_stack((x, y))
+
+    def __create_points_planar(self):
+        """ Creates n points using the planar method"""
+        #TODO
+        return None
 
 
-    def __make_convex_hull(self):
+    def __create_convex_hull(self):
         """ Calculates the convex hull of the points, that are inside the annulus."""
 
         c_hull = scipy.spatial.ConvexHull(self.points)
         return c_hull
 
+    def __get_convex_hull_vertices(self):
+        """ Gets the points that are used as vertices in a convex hull"""
+        vertices_indices = self.convex_hull.vertices
+        vertices = self.points[vertices_indices, :]
 
+        return vertices
 
+    @property
+    def hull_len(self):
+        """ Returns the length of the convex hull
+        It uses the area method from scipy.spatial.ConvexHull"""
+        return self.convex_hull.area
 
+    @property
+    def hull_area(self):
+        """ Returns the area of the convex hull
+        It uses the volume method from scipy.spatial.ConvexHull"""
+        return self.convex_hull.volume
 
+    def includes_circle(self):
+        """ Checks if the smaller circle is included inside the convex hull.
+        Returns True if yes, otherwise returns False"""
+        #TODO
+        return None
+
+    def __array_to_list(self):
+        """"""
+        #TODO
+        return None
 
