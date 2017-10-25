@@ -1,8 +1,9 @@
 import math
+import numpy as np
 
-def distance_from_point(start, end, p = (0, 0)):
+def distance_line_point(start, end, p = (0, 0)):
     """ Calculates distance between a line segment, starting in start and ending in end, and point p.
-    start, end and p are stored in (x, y) form.
+    start, end and p are stored in a numpy array array([x, y]).
     We use techniques from linear algebra in two dimensional euclidean plane
 
     t is a coefficient in the algebraic equation. If t>1, it means that the perpendicular projection
@@ -11,53 +12,36 @@ def distance_from_point(start, end, p = (0, 0)):
     from p to end, in second from p to start. If t is between 0 and 1, we calculate the distance from p
     to its perpendicular projection"""
 
-    def dot_prod(x, y):
-        """ Dot product of two two dimensional vectors"""
-        prod = x[0]*y[0] + x[1]*y[1]
-        return prod
-
-    # point (vector) start
-    x1, y1 = start[0], start[1]
-
-    # point (vector) end
-    x2, y2 = end[0], end[1]
-
-    # point (vector) point
-    x0, y0 = p[0], p[1]
-
     # q is a vector (line) AB, where A = start and B = end
-    q1, q2 = x2-x1, y2-y1
-    q = (q1, q2)
+    q = end - start
 
     # Calculate t
-    t = (dot_prod(q, p) - dot_prod(q, start))/(dot_prod(q, q))
+    t = (np.dot(q, p) - np.dot(q, start))/(np.dot(q, q))
 
     # See, from where will we measure our distance
     if t < 0:   point = start
-    elif 0 < t < 1: point = (x1 + t*q1 + x0, y1 + t*q2 + y0)
+    elif 0 < t < 1:
+        point = start + t*q
     else: point = end
 
-    distance = math.sqrt(dot_prod(point, point))
+    distance = math.sqrt(np.dot(point - p, point - p))
 
     return distance
 
 def convex_hull_circle_inclusion(points, r, center = (0, 0)):
     """ This function checks whether or not the inner boundary (smaller circle) of the annulus with radius r is
-    fully included inside the convex hull, defined (bounded) by the points in the list points.
-    Points are given in an ordered (if we connect the points from first to last, we get the convex hull) list
-    of points, each represented with a tuple (x, y)
+    fully included inside the convex hull, defined (bounded) by the points in the array 'points'.
+    Points are given in an ordered (if we connect the points from first to last, we get the convex hull) array
+    of points, each represented with a numpy array of two coordinates ([x,y])
     In the unlikely event where the convex hull is tangential to the smaller circle (distance to the convex hull is
     the same as r), we define that as inclusion.
     If the smaller circle is included, we return True, otherwise we return False"""
-    points = list(points)
 
-    end = points[0]
-    while len(points):
-        start = points.pop()
-        if r > distance_from_point(start, end, center):
+    for i in range(len(points)):
+        end = points[i]
+        if r > distance_line_point(start, end, center):
             return False
-        end = start
-
+        start = end
     return True
 
 
