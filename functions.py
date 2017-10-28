@@ -1,6 +1,7 @@
 # Functions for use in the main script
 
 import numpy as np
+import pandas as pd
 from Annulus import annulus
 
 def get_data(r, n, t = 1, method = "planar"):
@@ -33,6 +34,7 @@ def get_data(r, n, t = 1, method = "planar"):
     dictionary = {"length": length, "area": area, "inclusion": inclusion, "probability": probability}
     return dictionary
 
+
 def create_data_matrix(r_array, n_array, times = 1, method = "polar"):
     """ Calls the get_data function and stores the calculated data in 2-dimensional arrays, which it will return,
     saved in a list. The 'times' parameter is for the get function
@@ -43,7 +45,7 @@ def create_data_matrix(r_array, n_array, times = 1, method = "polar"):
         - inclusion
         - probability
     """
-    shape = (len(n_array), len(r_array))
+    shape = (len(r_array), len(n_array))
     length = np.zeros((shape))
     area = np.zeros((shape))
     inclusion = np.zeros((shape))
@@ -51,8 +53,8 @@ def create_data_matrix(r_array, n_array, times = 1, method = "polar"):
 
     for i in range(shape[0]):
         for j in range(shape[1]):
-            n = n_array[i]
-            r = r_array[j]
+            r = r_array[i]
+            n = n_array[j]
             data = get_data(r, n, times, method)
             # Saves the data into the appropriate slots in the array
             length[i, j] = data["length"]
@@ -64,6 +66,21 @@ def create_data_matrix(r_array, n_array, times = 1, method = "polar"):
     list_of_arrays = [length, area, inclusion, probability]
     return list_of_arrays
 
-def save_to_csv(r_array, n_array, times = 1, method = "polar")
 
-    # TODO Saves the data arrays to csv, names them type_r_n_times_method
+def save_to_csv(r_array, n_array, times = 1, method = "polar"):
+    """ The function gets the data from the 'create_data_matrix' function.
+    It extracts the arrays from the list (returned from the 'create_data_matrix')
+    and saves them into a csv, named: type_method_times
+    The separator in the csv is ';'
+    """
+    data = create_data_matrix(r_array, n_array, times, method)
+
+    names = ["length", "area", "inclusion", "probability"]
+    col_names = np.hstack(("r", n_array))
+    for i in range(len(names)):
+        name = "{}_{}_{}.csv".format(names[i], method, times)
+        array = data[i]
+        array = np.c_[r_array, array]
+        array_df = pd.DataFrame(array, columns = col_names)
+        array_df.to_csv(name, header=True, index = False)
+    return
