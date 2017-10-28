@@ -33,7 +33,7 @@ class annulus:
             "Number of points inside the annulus must be greater or equal than 3"
 
         assert method in ["polar", "planar", "naive"], \
-            "Method must be either 'polar' or 'planar'"
+            "Method must be either 'polar', 'planar' or 'naive' "
 
         self.r = radius
         self.n = number_of_points
