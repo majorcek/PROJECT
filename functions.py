@@ -78,7 +78,7 @@ def save_to_csv(r_array, n_array, times = 1, method = "polar"):
     names = ["length", "area", "inclusion", "probability"]
     col_names = np.hstack(("r", n_array))
     for i in range(len(names)):
-        name = "{}_{}_{}.csv".format(names[i], method, times)
+        name = "Data/{}_{}_{}.csv".format(names[i], method, times)
         array = data[i]
         array = np.c_[r_array, array]
         array_df = pd.DataFrame(array, columns = col_names)
