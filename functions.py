@@ -71,7 +71,7 @@ def save_to_csv(r_array, n_array, times = 1, method = "polar"):
     """ The function gets the data from the 'create_data_matrix' function.
     It extracts the arrays from the list (returned from the 'create_data_matrix')
     and saves them into a csv, named: type_method_times
-    The separator in the csv is ';'
+    The separator in the csv is ','
     """
     data = create_data_matrix(r_array, n_array, times, method)
 
