@@ -17,5 +17,7 @@ times = 4000
 r_array = np.linspace(0, 1, 101)
 n_array = np.array([3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 30, 40, 50, 100, 200, 500])
 
+method = ["polar", "naive"]
 
-save_to_csv(r_array,n_array,times)
+for meth in method:
+    save_to_csv(r_array,n_array,times, str(meth))
