@@ -40,3 +40,7 @@ tmtagsHistory
 *.sublime-workspace
 .bundle
 Work_Plan_group_4.docx
+
+.Rhistory
+
+.RData
