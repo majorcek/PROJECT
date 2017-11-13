@@ -21,3 +21,7 @@ method = ["polar", "naive"]
 
 for meth in method:
     save_to_csv(r_array,n_array,times, str(meth))
+
+# For 3D graph
+n_array = [i for i in range(3, 51)]
+
