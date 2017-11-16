@@ -67,10 +67,11 @@ def create_data_matrix(r_array, n_array, times = 1, method = "polar"):
     return list_of_arrays
 
 
-def save_to_csv(r_array, n_array, times = 1, method = "polar"):
+def save_to_csv(r_array, n_array, times = 1, method = "polar", NAME = ""):
     """ The function gets the data from the 'create_data_matrix' function.
     It extracts the arrays from the list (returned from the 'create_data_matrix')
-    and saves them into a csv, named: type_method_times
+    and saves them into a csv, named: type_method_times or type_method_times_NAME,
+    depending whether or not a custom name was provided
     The separator in the csv is ','
     """
     data = create_data_matrix(r_array, n_array, times, method)
@@ -78,7 +79,10 @@ def save_to_csv(r_array, n_array, times = 1, method = "polar"):
     names = ["length", "area", "inclusion", "probability"]
     col_names = np.hstack(("r", n_array))
     for i in range(len(names)):
-        name = "Data/{}_{}_{}.csv".format(names[i], method, times)
+        if NAME:
+            name = "Data/{}_{}_{}_{}.csv".format(names[i], method, times, NAME)
+        else:
+            name = "Data/{}_{}_{}.csv".format(names[i], method, times)
         array = data[i]
         array = np.c_[r_array, array]
         array_df = pd.DataFrame(array, columns = col_names)
