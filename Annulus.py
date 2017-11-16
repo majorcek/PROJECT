@@ -186,15 +186,35 @@ class annulus:
         of points, each represented with a numpy array of two coordinates ([x,y])
         In the unlikely event where the convex hull is tangential to the smaller circle (distance to the convex hull is
         the same as r), we define that as inclusion.
+        Simultaneously we check if the vertices of the convex hull really include the circle. This does not only
+        rely on the distance but the position of the points. They have to be positioned around the origin point
+        in such manner, that the points x, y coordinates cover all of the quadrants, at least one per parameter.
         If the smaller circle is included, we return True, otherwise we return False"""
 
+        # Indicators for points coordinates
+        x_left, x_right, y_up, y_down = False, False, False, False
         start = self.vertices[-1]
         for i in range(len(self.vertices)):
             end = self.vertices[i]
             if self.r > self.__distance_line_point(start, end):
                 return False
+
+            # Check the coordinates
+            if end[0] >= 0:
+                x_right = True
+            else:
+                x_left = True
+            if end[1] >=0:
+                y_up = True
+            else:
+                y_down = True
+
             start = end
-        return True
+
+        if x_left and x_right and y_up and y_down:
+            return True
+        else:
+            return False
 
 
     def __array_to_list_and_tuple(self, points):
