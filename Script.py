@@ -23,5 +23,8 @@ for meth in method:
     save_to_csv(r_array,n_array,times, str(meth))
 
 # For 3D graph
-n_array = [i for i in range(3, 51)]
+n_array_3D = [i for i in range(3, 51)]
+
+for meth in method:
+    save_to_csv(r_array, n_array_3D, times, str(meth), "3D")
 
