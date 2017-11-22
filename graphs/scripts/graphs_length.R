@@ -3,7 +3,7 @@ library(reshape)
 library(dplyr)
 library(rvest)
 
-length_naive0 <- read.csv2("data/length_naive_4000.csv", header = TRUE, dec = ".", sep = ",", encoding = "UTF-8", check.names = FALSE)
+length_naive0 <- read.csv2("../../data/length_naive_4000.csv", header = TRUE, dec = ".", sep = ",", encoding = "UTF-8", check.names = FALSE)
 length_naive <- melt(length_naive0, id = "r")
 colnames(length_naive) <- c("r", "tocke", "dolzina")
 
@@ -13,12 +13,12 @@ graf_length_naive <- ggplot(data = length_naive, aes(x = r, y = dolzina, col = t
   scale_colour_discrete(name="Number of\n  points\n") + 
   labs(x = "ratio between circle radiuses")+
   labs(y = "length")+
-  labs(title = "Length of convex hull versus ratios for different number \nof points (naive distributed)")+
-  labs(caption = "*length is diveded with R of bigger circle")
+  labs(title = "Length of convex hull versus ratios for different number \nof points (naive distribution)")+
+  labs(caption = "*length is divided with R of bigger circle")
 
 #########################################
 #########################################
-length_polar0 <- read.csv2("data/length_polar_4000.csv", header = TRUE, dec = ".", sep = ",", encoding = "UTF-8", check.names = FALSE)
+length_polar0 <- read.csv2("../../data/length_polar_4000.csv", header = TRUE, dec = ".", sep = ",", encoding = "UTF-8", check.names = FALSE)
 length_polar <- melt(length_polar0, id = "r")
 colnames(length_polar) <- c("r", "tocke", "dolzina")
 
@@ -28,8 +28,8 @@ graf_length_polar <- ggplot(data = length_polar, aes(x = r, y = dolzina, col = t
   scale_colour_discrete(name="Number of\n  points\n") + 
   labs(x = "ratio between circle radiuses")+
   labs(y = "length")+
-  labs(title = "Length of convex hull versus ratios for different number \nof points (naive distributed)")+
-  labs(caption = "*length is diveded with R of bigger circle")
+  labs(title = "Length of convex hull versus ratios for different number \nof points (polar distribution)")+
+  labs(caption = "*length is divided with R of bigger circle")
 
 #####################################
 #####################################
