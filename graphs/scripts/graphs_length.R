@@ -44,6 +44,6 @@ graf_primerjava_length <- ggplot(data = length_primerjava, aes(x = r, y = dolzin
   labs(col = "Number of\n  points\n", lty = "") +
   labs(type = "") + 
   labs(x = "ratio between circle radiuses") +
-  labs(y = "area") +
+  labs(y = "length") +
   labs(title = "Comparison between polar and naive distibuted points") +
-  labs(caption = "*area is diveded with R of bigger circle")
+  labs(caption = "*area is divided with R of bigger circle")
