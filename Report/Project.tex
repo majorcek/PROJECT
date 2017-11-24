@@ -25,9 +25,9 @@
 \end{quote}
 \bigskip 
 \section{Problem description and objective}
-Let us consider an annulus $A$. An annulus is a ring-shaped object, bounded by two concentric circles $C$ and $C'$. Let us assume that $C'$ is the smaller one. Inside the annulus, there is a set of n points, named $P_n$, that are uniformly randomly distributed. For these points, we find a convex hull $CH(P_n)$. A convex hull of a set of points $X$ in a Euclidean space (or affine space over the reals) is the smaller convex set that contains $X$. If we were to have a bounded set $X$ of points on a plane, we could visualise the convex hull as a rubber band stretched around the set $X$. \medskip 
+Let us consider an annulus $A$. An annulus is a ring-shaped object, bounded by two concentric circumferences $C$ and $C'$. Let us assume that $C'$ is the smaller one. Inside the annulus, there is a set of n points, named $P_n$, that are uniformly randomly distributed. For these points, we find a convex hull $CH(P_n)$. A convex hull of a set of points $X$ in a Euclidean space (or affine space over the reals) is the smaller convex set that contains $X$. If we were to have a bounded set $X$ of points on a plane, we could visualise the convex hull as a rubber band stretched around the set $X$. \medskip 
  
-The objective of our assignment is to experimentally analyse the length and the area of $CH(P_n)$. We also have to experimentally analyse the probability that the convex hull $CH(P_n)$ contains the inner border (smaller circumference) of the annulus, $C'$. 
+The objective of our assignment is to experimentally analyse the length and the area of $CH(P_n)$ and also the probability that the convex hull $CH(P_n)$ contains the inner border (smaller circumference) of the annulus, $C'$. 
 \pagebreak 
 
 \section{Hypothesis}
@@ -61,7 +61,7 @@ The average time complexity is $O(n\log{n})$ and in worst possible case, $O(n^2)
 
 \subsection{Gift wrapping}
 
-The first phase of the algorithm is to identify the minimum point on some axis. The $ y-axis $ is a good candidate, as the angles for all other points in the set range from $90^{\circ}$  to $270^ {\circ}$ , which facilitates sorting. This makes identifying the point with the minimum angle, relative to the current point, significantly easier.Starting with the minimal point, already known to be in the final perimeter, the algorithm scans all the points in the set, computes their angle, and stores the most angularly minimal point. Because the initial order of the set is arbitrary, it is necessary to scan all nodes in the set except for the current point. Sorting by angle is not useful, because the angles change as the algorithm progresses from point to point. The point found from the process described above will be the next point in the convex hull, in the clockwise direction. If you relate this to the physical example using the rubber band stretched around the set X it is evident that as you put the rubber around the set, the first pin that touches the string will be the one with the least relative angle.\medskip
+The first phase of the algorithm is to identify the minimum point on some axis. The $ y-axis $ is a good candidate, as the angles for all other points in the set range from $90^{\circ}$  to $270^ {\circ}$, which facilitates sorting. This makes identifying the point with the minimum angle, relative to the current point, significantly easier. Starting with the minimal point, already known to be in the final perimeter, the algorithm scans all the points in the set, computes their angle, and stores the most angularly minimal point. Because the initial order of the set is arbitrary, it is necessary to scan all nodes in the set except for the current point. Sorting by angle is not useful, because the angles change as the algorithm progresses from point to point. The point found from the process described above will be the next point in the convex hull, in the clockwise direction. If you relate this to the physical example using the rubber band stretched around the set X it is evident that as you put the rubber around the set, the first pin that touches the string will be the one with the least relative angle.\medskip
 
 The time complexity of this algorithm is $O(nh)$, where $n$ is the number of vertices, and $h$ is the number of vertices on the convex hull. This complexity is favourable where $n$ is small or $h$ is expected to be small, compared to $n$. \medskip
 
@@ -188,7 +188,7 @@ Now we going to observe the comparison of both distributions
 \label{f:comparison_probability}
 \end{figure}
 
-The shape of both curves changes, when we use a different $n$. For a lesser $n$, the curve is convex, and when we increase it, it changes to a concave curve.. The change starts when $n$ is around $10$. This means that to this point, the probability is more responsive to $r$ and from this point onwards, the probability is less and less responsive to it. This happens, because with greater number of points comes a bigger probability, that the vertices will be near the edge, and won't be effected by a small increase of $r$.\\
+The shape of both curves changes, when we use a different $n$. For a lesser $n$, the curve is convex, and when we increase it, it changes to a concave curve. The change starts when $n$ is around $10$. This means that to this point, the probability is more responsive to $r$ and from this point onwards, the probability is less and less responsive to it. This happens, because with greater number of points comes a bigger probability, that the vertices will be near the edge, and won't be effected by a small increase of $r$.\\
 
 With the same $r$, the probability of including the smaller circle is higher when the vertices were generated using the polar method. This makes sense, as those vertices are more spaced out, in contrast to those, generated using the naive method, which are biased to the middle.  \\
  
