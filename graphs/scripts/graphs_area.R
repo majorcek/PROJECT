@@ -3,7 +3,7 @@ library(reshape)
 library(dplyr)
 library(rvest)
 
-area_naive0 <- read.csv2("data/area_naive_4000.csv", header = TRUE, dec = ".", sep = ",", encoding = "UTF-8", check.names = FALSE)
+area_naive0 <- read.csv2("../../data/area_naive_4000.csv", header = TRUE, dec = ".", sep = ",", encoding = "UTF-8", check.names = FALSE)
 area_naive <- melt(area_naive0, id = "r")
 colnames(area_naive) <- c("r", "tocke", "povrsina")
 
@@ -18,7 +18,7 @@ graf_area_naive <- ggplot(data = area_naive, aes(x = r, y = povrsina, col = tock
 
 ##################################################
 ##################################################
-area_polar0 <- read.csv2("data/area_polar_4000.csv", header = TRUE, dec = ".", sep = ",", encoding = "UTF-8", check.names = FALSE)
+area_polar0 <- read.csv2("../../data/area_polar_4000.csv", header = TRUE, dec = ".", sep = ",", encoding = "UTF-8", check.names = FALSE)
 area_polar <- melt(area_polar0, id = "r")
 colnames(area_polar) <- c("r", "tocke", "povrsina")
 

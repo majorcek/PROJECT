@@ -2,7 +2,7 @@ library(plotly)
 library(rvest)
 library(dplyr)
 library(scatterplot3d)
-probabaility_naive_3D <- read.csv2("data/probability_naive_3D.csv", header = TRUE, dec = ".", sep = ",", encoding = "UTF-8", check.names = FALSE)
+probabaility_naive_3D <- read.csv2("../../data/probability_naive_4000_3D.csv", header = TRUE, dec = ".", sep = ",", encoding = "UTF-8", check.names = FALSE)
 proba3D <- probabaility_naive_3D[,-1]
 
 
@@ -29,7 +29,7 @@ graf_3D_naive <- persp(x = X, z = Z_naive,
 ###############################################
 ###############################################
 
-probabaility_polar_3D <- read.csv2("data/probability_polar_3D.csv", header = TRUE, dec = ".", sep = ",", encoding = "UTF-8", check.names = FALSE)
+probabaility_polar_3D <- read.csv2("../../data/probability_polar_4000_3D.csv", header = TRUE, dec = ".", sep = ",", encoding = "UTF-8", check.names = FALSE)
 proba3D_polar <- probabaility_polar_3D[,-1]
 
 
